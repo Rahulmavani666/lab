@@ -1,0 +1,37 @@
+class Box {
+
+    double width;
+    double height;
+    double length;
+
+    // Default constructor
+    Box() {
+        width = 0;
+        height = 0;
+        length = 0;
+    }
+
+    // Parameterized constructor
+    Box(double w, double h, double l) {
+        width = w;
+        height = h;
+        length = l;
+    }
+
+    // Method to calculate volume
+    double volume() {
+        return width * height * length;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        // Using parameterized constructor
+        Box b1 = new Box(5, 4, 3);
+
+        double vol = b1.volume();
+
+        System.out.println("Volume of Box = " + vol);
+    }
+}
