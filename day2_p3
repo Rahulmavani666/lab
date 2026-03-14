@@ -1,0 +1,42 @@
+class Cone {
+
+    double radius;
+    double height;
+
+    Cone(double r, double h) {
+        radius = r;
+        height = h;
+    }
+
+    double slantHeight() {
+        return Math.sqrt(radius * radius + height * height);
+    }
+
+    double volume() {
+        return (1.0/3) * Math.PI * radius * radius * height;
+    }
+
+    double area() {
+        double l = slantHeight();
+        return Math.PI * radius * (radius + l);
+    }
+
+    void display() {
+        System.out.println("Radius = " + radius);
+        System.out.println("Height = " + height);
+        System.out.println("Slant Height = " + slantHeight());
+        System.out.println("Volume = " + volume());
+        System.out.println("Surface Area = " + area());
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        double r = Double.parseDouble(args[0]);
+        double h = Double.parseDouble(args[1]);
+
+        Cone c = new Cone(r, h);
+        c.display();
+    }
+}
