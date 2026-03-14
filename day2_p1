@@ -1,0 +1,28 @@
+import java.util.Scanner;
+
+class DigitSum {
+
+    DigitSum(int num) {
+        int sum = 0;
+
+        while (num > 0) {
+            int digit = num % 10;
+            sum = sum + digit;
+            num = num / 10;
+        }
+
+        System.out.println("Sum of digits = " + sum);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter a five digit number: ");
+        int number = sc.nextInt();
+
+        new DigitSum(number);   // Constructor call
+    }
+}
