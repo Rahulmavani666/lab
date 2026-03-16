@@ -1,0 +1,100 @@
+import java.util.Scanner;
+
+class Vehicle {
+    protected String licenceNumber;
+    protected int speed;
+    protected String color;
+    protected String ownerName;
+
+    Vehicle(String licenceNumber, int speed, String color, String ownerName) {
+        this.licenceNumber = licenceNumber;
+        this.speed = speed;
+        this.color = color;
+        this.ownerName = ownerName;
+    }
+
+    void showdata() {
+        System.out.println("This is a vehicle class");
+    }
+}
+
+class Bus extends Vehicle {
+    private int routeNo;
+
+    Bus(String licenceNumber, int speed, String color, String ownerName, int routeNo) {
+        super(licenceNumber, speed, color, ownerName);
+        this.routeNo = routeNo;
+    }
+
+    void showdata() {
+        super.showdata();
+        System.out.println("Bus Details:");
+        System.out.println("Licence Number: " + licenceNumber);
+        System.out.println("Speed: " + speed);
+        System.out.println("Color: " + color);
+        System.out.println("Owner Name: " + ownerName);
+        System.out.println("Route No: " + routeNo);
+    }
+}
+
+class Car extends Vehicle {
+    private String manufacturerName;
+
+    Car(String licenceNumber, int speed, String color, String ownerName, String manufacturerName) {
+        super(licenceNumber, speed, color, ownerName);
+        this.manufacturerName = manufacturerName;
+    }
+
+    void showdata() {
+        super.showdata();
+        System.out.println("Car Details:");
+        System.out.println("Licence Number: " + licenceNumber);
+        System.out.println("Speed: " + speed);
+        System.out.println("Color: " + color);
+        System.out.println("Owner Name: " + ownerName);
+        System.out.println("Manufacturer Name: " + manufacturerName);
+    }
+}
+
+public class VehicleDemo {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter Bus Details:");
+        System.out.print("Licence Number: ");
+        String busLicenceNumber = sc.nextLine();
+        System.out.print("Speed: ");
+        int busSpeed = sc.nextInt();
+        sc.nextLine();
+        System.out.print("Color: ");
+        String busColor = sc.nextLine();
+        System.out.print("Owner Name: ");
+        String busOwnerName = sc.nextLine();
+        System.out.print("Route No: ");
+        int routeNo = sc.nextInt();
+        sc.nextLine();
+
+        System.out.println();
+        System.out.println("Enter Car Details:");
+        System.out.print("Licence Number: ");
+        String carLicenceNumber = sc.nextLine();
+        System.out.print("Speed: ");
+        int carSpeed = sc.nextInt();
+        sc.nextLine();
+        System.out.print("Color: ");
+        String carColor = sc.nextLine();
+        System.out.print("Owner Name: ");
+        String carOwnerName = sc.nextLine();
+        System.out.print("Manufacturer Name: ");
+        String manufacturerName = sc.nextLine();
+
+        Bus bus = new Bus(busLicenceNumber, busSpeed, busColor, busOwnerName, routeNo);
+        Car car = new Car(carLicenceNumber, carSpeed, carColor, carOwnerName, manufacturerName);
+
+        bus.showdata();
+        System.out.println();
+        car.showdata();
+
+        sc.close();
+    }
+}
