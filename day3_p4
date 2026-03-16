@@ -1,0 +1,74 @@
+package opps;
+
+import java.util.Scanner;
+
+class LocalCall {
+    private int durationMinutes;
+
+    LocalCall(int durationMinutes) {
+        this.durationMinutes = durationMinutes;
+    }
+
+    int rateCall() {
+        return (durationMinutes + 2) / 3;
+    }
+}
+
+class LongCall {
+    private int durationMinutes;
+    private int callHour;
+    private String originCode;
+    private String destinationCode;
+
+    LongCall(int durationMinutes, int callHour, String originCode, String destinationCode) {
+        this.durationMinutes = durationMinutes;
+        this.callHour = callHour;
+        this.originCode = originCode;
+        this.destinationCode = destinationCode;
+    }
+
+    double rateCall() {
+        double ratePerMinute;
+
+        if (callHour >= 22 || callHour < 6) {
+            ratePerMinute = 1.50;
+        } else if (callHour >= 6 && callHour < 18) {
+            ratePerMinute = 2.50;
+        } else {
+            ratePerMinute = 3.00;
+        }
+
+        if (!originCode.equals(destinationCode)) {
+            ratePerMinute += 1.00;
+        }
+
+        return durationMinutes * ratePerMinute;
+    }
+}
+
+public class TelephoneBillingDemo {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter local call duration in minutes: ");
+        int localDuration = sc.nextInt();
+        LocalCall localCall = new LocalCall(localDuration);
+        System.out.println("Local call units: " + localCall.rateCall());
+
+        System.out.println();
+        System.out.print("Enter STD call duration in minutes: ");
+        int stdDuration = sc.nextInt();
+        System.out.print("Enter call hour (0-23): ");
+        int callHour = sc.nextInt();
+        sc.nextLine();
+        System.out.print("Enter origin STD code: ");
+        String originCode = sc.nextLine();
+        System.out.print("Enter destination STD code: ");
+        String destinationCode = sc.nextLine();
+
+        LongCall longCall = new LongCall(stdDuration, callHour, originCode, destinationCode);
+        System.out.println("STD call charge: " + longCall.rateCall());
+
+        sc.close();
+    }
+}
