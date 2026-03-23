@@ -1,0 +1,101 @@
+
+
+import java.util.Scanner;
+
+interface Department {
+    String depName = "";
+    String depHead = "";
+
+    void getDepartmentData(Scanner scanner);
+
+    void printDepartmentData();
+}
+
+class Hostel {
+    protected String hostelName;
+    protected String hostelLocation;
+    protected int noOfRooms;
+
+    public void getHostelData(Scanner scanner) {
+        System.out.print("Enter hostel name: ");
+        hostelName = scanner.nextLine();
+
+        System.out.print("Enter hostel location: ");
+        hostelLocation = scanner.nextLine();
+
+        System.out.print("Enter number of rooms: ");
+        noOfRooms = scanner.nextInt();
+        scanner.nextLine();
+    }
+
+    public void printHostelData() {
+        System.out.println("Hostel Name: " + hostelName);
+        System.out.println("Hostel Location: " + hostelLocation);
+        System.out.println("Number of Rooms: " + noOfRooms);
+    }
+}
+
+class Student extends Hostel implements Department {
+    private String studentName;
+    private String regNo;
+    private String electiveSubject;
+    private double avgMarks;
+    private String studentDepName;
+    private String studentDepHead;
+
+    public void getData(Scanner scanner) {
+        System.out.print("Enter student name: ");
+        studentName = scanner.nextLine();
+
+        System.out.print("Enter register number: ");
+        regNo = scanner.nextLine();
+
+        System.out.print("Enter elective subject: ");
+        electiveSubject = scanner.nextLine();
+
+        System.out.print("Enter average marks: ");
+        avgMarks = scanner.nextDouble();
+        scanner.nextLine();
+
+        getDepartmentData(scanner);
+        getHostelData(scanner);
+    }
+
+    public void printData() {
+        System.out.println();
+        System.out.println("Student Details");
+        System.out.println("Student Name: " + studentName);
+        System.out.println("Register Number: " + regNo);
+        System.out.println("Elective Subject: " + electiveSubject);
+        System.out.println("Average Marks: " + avgMarks);
+        printDepartmentData();
+        printHostelData();
+    }
+
+    @Override
+    public void getDepartmentData(Scanner scanner) {
+        System.out.print("Enter department name: ");
+        studentDepName = scanner.nextLine();
+
+        System.out.print("Enter department head: ");
+        studentDepHead = scanner.nextLine();
+    }
+
+    @Override
+    public void printDepartmentData() {
+        System.out.println("Department Name: " + studentDepName);
+        System.out.println("Department Head: " + studentDepHead);
+    }
+}
+
+public class day2 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Student student = new Student();
+
+        student.getData(scanner);
+        student.printData();
+
+        scanner.close();
+    }
+}
