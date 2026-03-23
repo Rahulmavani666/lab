@@ -1,0 +1,127 @@
+
+import java.util.Scanner;
+
+abstract class ThreeDObject {
+    protected double dimension1;
+    protected double dimension2;
+    protected double dimension3;
+
+    public ThreeDObject(double dimension1, double dimension2, double dimension3) {
+        this.dimension1 = dimension1;
+        this.dimension2 = dimension2;
+        this.dimension3 = dimension3;
+    }
+
+    abstract double wholesurfacearea();
+
+    abstract double volume();
+}
+
+
+class Box extends ThreeDObject {
+    public Box(double length, double breadth, double height) {
+        super(length, breadth, height);
+    }
+
+    @Override
+    double wholesurfacearea() {
+        return 2 * ((dimension1 * dimension2) + (dimension1 * dimension3) + (dimension2 * dimension3));
+    }
+
+    @Override
+    double volume() {
+        return dimension1 * dimension2 * dimension3;
+    }
+}
+
+class Cube extends ThreeDObject {
+    public Cube(double side) {
+        super(side, side, side);
+    }
+
+    @Override
+    double wholesurfacearea() {
+        return 6 * dimension1 * dimension1;
+    }
+
+    @Override
+    double volume() {
+        return dimension1 * dimension1 * dimension1;
+    }
+}
+
+class Cylinder extends ThreeDObject {
+    public Cylinder(double radius, double height) {
+        super(radius, height, 0);
+    }
+
+    @Override
+    double wholesurfacearea() {
+        return 2 * Math.PI * dimension1 * (dimension1 + dimension2);
+    }
+
+    @Override
+    double volume() {
+        return Math.PI * dimension1 * dimension1 * dimension2;
+    }
+}
+
+class Cone extends ThreeDObject {
+    public Cone(double radius, double height) {
+        super(radius, height, Math.sqrt((radius * radius) + (height * height)));
+    }
+
+    @Override
+    double wholesurfacearea() {
+        return Math.PI * dimension1 * (dimension1 + dimension3);
+    }
+
+    @Override
+    double volume() {
+        return (Math.PI * dimension1 * dimension1 * dimension2) / 3;
+    }
+}
+
+public class day1 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Choose object:");
+        System.out.println("1. Box");
+        System.out.println("2. Cube");
+        System.out.println("3. Cylinder");
+        System.out.println("4. Cone");
+        System.out.print("Enter choice: ");
+
+        int choice = scanner.nextInt();
+        ThreeDObject object;
+
+        switch (choice) {
+            case 1:
+                System.out.print("Enter length, breadth and height: ");
+                object = new Box(scanner.nextDouble(), scanner.nextDouble(), scanner.nextDouble());
+                break;
+            case 2:
+                System.out.print("Enter side: ");
+                object = new Cube(scanner.nextDouble());
+                break;
+            case 3:
+                System.out.print("Enter radius and height: ");
+                object = new Cylinder(scanner.nextDouble(), scanner.nextDouble());
+                break;
+            case 4:
+                System.out.print("Enter radius and height: ");
+                object = new Cone(scanner.nextDouble(), scanner.nextDouble());
+                break;
+            default:
+                System.out.println("Invalid choice.");
+                scanner.close();
+                return;
+        }
+
+        System.out.printf("Volume: %.2f%n", object.volume());
+        System.out.printf("Whole Surface Area: %.2f%n", object.wholesurfacearea());
+
+        scanner.close();
+    }
+}
