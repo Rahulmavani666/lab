@@ -1,0 +1,90 @@
+class SharedBuffer {
+    private int data;
+    private boolean hasValue = false;
+
+    // Produce data
+    public synchronized void produce(int value) {
+        try {
+            while (hasValue) {
+                wait(); // wait until buffer is empty
+            }
+
+            data = value;
+            System.out.println("Produced: " + value);
+
+            hasValue = true;
+            notify(); // notify consumer
+
+        } catch (InterruptedException e) {
+            System.out.println("Producer interrupted");
+        }
+    }
+
+    // Consume data
+    public synchronized void consume() {
+        try {
+            while (!hasValue) {
+                wait(); // wait until data is available
+            }
+
+            System.out.println("Consumed: " + data);
+
+            hasValue = false;
+            notify(); // notify producer
+
+        } catch (InterruptedException e) {
+            System.out.println("Consumer interrupted");
+        }
+    }
+}
+
+// Producer thread
+class Producer extends Thread {
+    private SharedBuffer buffer;
+
+    Producer(SharedBuffer buffer) {
+        this.buffer = buffer;
+    }
+
+    public void run() {
+        int i = 1;
+        while (true) {
+            buffer.produce(i++);
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {}
+        }
+    }
+}
+
+// Consumer thread
+class Consumer extends Thread {
+    private SharedBuffer buffer;
+
+    Consumer(SharedBuffer buffer) {
+        this.buffer = buffer;
+    }
+
+    public void run() {
+        while (true) {
+            buffer.consume();
+            try {
+                Thread.sleep(800);
+            } catch (InterruptedException e) {}
+        }
+    }
+}
+
+// Main class
+public class Main {
+    public static void main(String[] args) {
+
+        SharedBuffer buffer = new SharedBuffer();
+
+        Producer p = new Producer(buffer);
+        Consumer c = new Consumer(buffer);
+
+        p.start();
+        c.start();
+    }
+}
