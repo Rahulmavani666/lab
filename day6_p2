@@ -1,0 +1,49 @@
+import java.util.Scanner;
+
+class TableThread extends Thread {
+    private int number;
+
+    TableThread(int number) {
+        this.number = number;
+    }
+
+    public void run() {
+        System.out.println("\nTable of " + number + ":");
+
+        for (int i = 1; i <= 10; i++) {
+            System.out.println(number + " x " + i + " = " + (number * i));
+
+            try {
+                Thread.sleep(200); // small delay to visualize interleaving
+            } catch (InterruptedException e) {
+                System.out.println("Thread interrupted");
+            }
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter number of tables: ");
+        int n = sc.nextInt();
+
+        TableThread[] threads = new TableThread[n];
+
+        // Create threads
+        for (int i = 0; i < n; i++) {
+            System.out.print("Enter number " + (i + 1) + ": ");
+            int num = sc.nextInt();
+            threads[i] = new TableThread(num);
+        }
+
+        // Start threads
+        for (int i = 0; i < n; i++) {
+            threads[i].start();
+        }
+
+        sc.close();
+    }
+}
