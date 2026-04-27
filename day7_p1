@@ -1,0 +1,65 @@
+import java.util.Scanner;
+public class MathOperations {
+
+    public double add(double a, double b) {
+        return a + b;
+    }
+
+    public double subtract(double a, double b) {
+        return a - b;
+    }
+
+    public double multiply(double a, double b) {
+        return a * b;
+    }
+
+    public double divide(double a, double b) {
+        if (b == 0) {
+            throw new ArithmeticException("Division by zero is not allowed");
+        }
+        return a / b;
+    }
+}
+
+public class UseMathOperations {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        MathOperations math = new MathOperations();
+
+        System.out.print("Enter first number: ");
+        double a = sc.nextDouble();
+        System.out.print("Enter second number: ");
+        double b = sc.nextDouble();
+
+        System.out.println("Choose operation:");
+        System.out.println("1. Addition");
+        System.out.println("2. Subtraction");
+        System.out.println("3. Multiplication");
+        System.out.println("4. Division");
+        System.out.print("Enter choice: ");
+        int choice = sc.nextInt();
+
+        try {
+            switch (choice) {
+                case 1:
+                    System.out.println("Addition: " + math.add(a, b));
+                    break;
+                case 2:
+                    System.out.println("Subtraction: " + math.subtract(a, b));
+                    break;
+                case 3:
+                    System.out.println("Multiplication: " + math.multiply(a, b));
+                    break;
+                case 4:
+                    System.out.println("Division: " + math.divide(a, b));
+                    break;
+                default:
+                    System.out.println("Invalid choice");
+            }
+        } catch (ArithmeticException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        sc.close();
+    }
+}
