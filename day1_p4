@@ -1,0 +1,79 @@
+import java.util.*;
+
+class BankAccount {
+
+    // Data members
+    private String name;
+    private int accountNo;
+    private String accountType;
+    private double balance;
+
+    // Method to assign initial values
+    public void initialize(String name, int accountNo, String accountType, double balance) {
+        this.name = name;
+        this.accountNo = accountNo;
+        this.accountType = accountType;
+        this.balance = balance;
+    }
+
+    // Deposit method
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            System.out.println("Deposited: " + amount);
+        } else {
+            System.out.println("Invalid deposit amount");
+        }
+    }
+
+    // Withdraw method with balance check
+    public void withdraw(double amount) {
+        if (amount <= 0) {
+            System.out.println("Invalid withdrawal amount");
+        } else if (amount > balance) {
+            System.out.println("Insufficient balance");
+        } else {
+            balance -= amount;
+            System.out.println("Withdrawn: " + amount);
+        }
+    }
+
+    // Display method
+    public void display() {
+        System.out.println("Account Holder: " + name);
+        System.out.println("Balance: " + balance);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        BankAccount acc = new BankAccount();
+
+        // Assign initial values
+        System.out.print("Enter Name: ");
+        String name = sc.nextLine();
+
+        System.out.print("Enter Account No: ");
+        int accNo = sc.nextInt();
+
+        sc.nextLine(); // clear buffer
+
+        System.out.print("Enter Account Type: ");
+        String type = sc.nextLine();
+
+        System.out.print("Enter Initial Balance: ");
+        double bal = sc.nextDouble();
+
+        acc.initialize(name, accNo, type, bal);
+
+        // Operations
+        acc.deposit(1000);
+        acc.withdraw(500);
+        acc.display();
+
+        sc.close();
+    }
+}
